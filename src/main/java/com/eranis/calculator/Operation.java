@@ -1,7 +1,14 @@
-package com.eranis;
+package com.eranis.calculator;
 
 public enum Operation {
-  ADDITION, SUBTRACTION, MULTIPLICATION, DIVISION, UNKNOWN;
+
+  MULTIPLICATION(4), DIVISION(3), ADDITION(2), SUBTRACTION(1), NONE(0);
+
+  private int priority;
+
+  Operation(int priority) {
+    this.priority = priority;
+  }
 
   public static Operation parse(String operator) {
     if ("+".equals(operator)) {
@@ -13,7 +20,11 @@ public enum Operation {
     } else if ("/".equals(operator)) {
       return Operation.DIVISION;
     } else {
-      return Operation.UNKNOWN;
+      return Operation.NONE;
     }
+  }
+
+  public boolean isGreater(Operation nextOperation) {
+    return nextOperation == null ? false : priority > nextOperation.priority;
   }
 }
