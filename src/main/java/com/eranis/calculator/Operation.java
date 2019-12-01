@@ -2,7 +2,7 @@ package com.eranis.calculator;
 
 public enum Operation {
 
-  MULTIPLICATION(4), DIVISION(3), ADDITION(2), SUBTRACTION(1), NONE(0);
+  MULTIPLICATION(4), DIVISION(4), ADDITION(1), SUBTRACTION(1), NONE(0);
 
   private int priority;
 

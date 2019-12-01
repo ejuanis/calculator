@@ -9,20 +9,25 @@ public class Calculator {
    * Evaluate given input of mathematical equation. The value number and operator are separated by SPACE.
    *
    * @param expression
-   *
    * @return Result in Type: double
+   *
+   * @throws CalculatorException
    */
   public static double calculate(String expression) {
-
     StringBuilder sb = new StringBuilder(expression);
-    int start = sb.lastIndexOf("(");
-    int end = sb.indexOf(")");
 
-    if (start >= 0 && end > 0) {
-      String subExpression = sb.substring(start + 1, end);
+    Parentheses parentheses = findFirstParenthesesPair(expression);
+
+    if (parentheses.hasIncompleteParentheses) {
+      throw new CalculatorException("Found bracket without pair");
+    }
+
+    if (parentheses.hasParentheses) {
+      String subExpression = sb.substring(parentheses.start + 1, parentheses.end);
       double result = calculate(subExpression.trim());
 
-      expression = sb.replace(start, end + 1, Double.toString(result)).toString();
+      String value = Double.toString(result);
+      expression = sb.replace(parentheses.start, parentheses.end + 1, value).toString();
 
       return calculate(expression);
 
@@ -33,6 +38,13 @@ public class Calculator {
 
       return evaluate(equation);
     }
+  }
+
+  private static Parentheses findFirstParenthesesPair(String expression) {
+    int start = expression.lastIndexOf("(");
+    int end = expression.indexOf(")", start);
+
+    return new Parentheses(start, end);
   }
 
   private static Equation buildEquation(String[] values) {
@@ -116,4 +128,17 @@ public class Calculator {
     return result;
   }
 
+  static class Parentheses {
+    private final int start;
+    private final int end;
+    private final boolean hasParentheses;
+    private final boolean hasIncompleteParentheses;
+
+    public Parentheses(int start, int end) {
+      this.start = start;
+      this.end = end;
+      hasParentheses = start >= 0 || end > 0;
+      hasIncompleteParentheses = (start >= 0 && end < 0) || (start < 0 && end > 0);
+    }
+  }
 }

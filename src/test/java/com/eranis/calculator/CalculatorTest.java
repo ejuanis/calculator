@@ -125,4 +125,39 @@ public class CalculatorTest {
 
     assertEquals("Sequential parentheses operation should return the correct value", expected, result, 0);
   }
+
+  @Test
+  public void singleNumberTest() {
+    double expected = 100;
+    double result = Calculator.calculate("100");
+
+    assertEquals("Evaluating single number should return the same number", expected, result, 0);
+  }
+
+  @Test
+  public void singleNumberInBracketTest() {
+    double expected = 100;
+    double result = Calculator.calculate("( 100 )");
+
+    assertEquals("Evaluating single number in bracket should return the same number", expected, result, 0);
+  }
+
+  @Test(expected = CalculatorException.class)
+  public void invalidEquationWithoutOpeningBracketTest() {
+    double result = Calculator.calculate("1 + 4 / 2 )");
+  }
+
+  @Test(expected = CalculatorException.class)
+  public void invalidEquationWithoutClosingBracketTest() {
+    double result = Calculator.calculate("1 + ( 4 / 2");
+  }
+
+  @Test
+  public void extraLongEquationTest() {
+    double expected = 1 + 2 - (3d / (3 * 7 + 2)) / 3d + (3 - 2) + (3 + 2) / 7d;
+    double result = Calculator.calculate("1 + 2 - ( 3 / (3 * 7 + 2)) / 3 + (3 - 2) + (3 + 2) / 7");
+
+    assertEquals("Evaluating long equation should return the correct value", expected, result, 0);
+  }
+
 }
