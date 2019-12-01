@@ -86,4 +86,43 @@ public class CalculatorTest {
     assertEquals("Subtract then multiply then add then subtract with bracket should return the correct value", expected, result, 0);
   }
 
+  @Test
+  public void sequentialParenthesesWithNumberOnTheLeftTest() {
+    double expected = 10 - (7 + 5) + (5 + 2);
+    double result = Calculator.calculate("10 - ( 7 + 5 ) + ( 5 + 2 )");
+
+    assertEquals("Sequential operation should return the correct value", expected, result, 0);
+  }
+
+  @Test
+  public void longAdditionAndSubtractionEquationTest() {
+    double expected = 1 + 2 - 3 + 4 - 5;
+    double result = Calculator.calculate("1 + 2 - 3 + 4 - 5");
+
+    assertEquals("Evaluating long equation containing addition and subtraction should return the correct value", expected, result, 0);
+  }
+
+  @Test
+  public void fractionalWithDenominatorInParenthesesTest() {
+    double expected = 1d / (2 + 3 * (4 - 5));
+    double result = Calculator.calculate("1 / ( 2 + 3 * ( 4 - 5 ) )");
+
+    assertEquals("Fractional equation with denominator in parentheses should return correct result", expected, result, 0);
+  }
+
+  @Test
+  public void longMultiplicationAndDivisionEquationTest() {
+    double expected = 1d * 2 / 3 * 4 / 5;
+    double result = Calculator.calculate("1 * 2 / 3 * 4 / 5");
+
+    assertEquals("Evaluating long equation containing multiplication and division should return the correct value", expected, result, 0);
+  }
+
+  @Test
+  public void sequentialEquationInParenthesesTest() {
+    double expected = (1 + 2) * (3 + 4);
+    double result = Calculator.calculate("( 1 + 2 ) * ( 3 + 4 )");
+
+    assertEquals("Sequential parentheses operation should return the correct value", expected, result, 0);
+  }
 }
