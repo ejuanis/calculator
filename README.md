@@ -18,7 +18,7 @@ Time taken to complete this project ~2 days (Coding efforts 10hrs)
             <dependency>
                 <groupId>com.eranis</groupId>
                 <artifactId>calculator</artifactId>
-                <version>1.0.0</version>
+                <version>1.0.1</version>
             </dependency>
         </dependencies>
 
